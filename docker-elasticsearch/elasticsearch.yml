@@ -1,0 +1,21 @@
+# Elasticsearch Configuration
+cluster.name: "my-cluster"
+node.name: "node-1"
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+# Network settings
+network.host: 0.0.0.0
+http.port: 9200
+transport.port: 9300  # Use transport.port instead of transport.tcp.port
+
+# Discovery settings for single-node setup
+discovery.type: single-node
+
+# Security settings (corrected)
+xpack.security.enabled: true
+xpack.security.authc.api_key.enabled: true  # Corrected setting
+
+# Optional heap size settings (you can modify based on your machine's capabilities)
+bootstrap.memory_lock: true
+indices.fielddata.cache.size: 30%
