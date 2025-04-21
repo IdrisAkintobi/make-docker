@@ -1,0 +1,34 @@
+# Jenkins Configuration
+jenkins:
+  home: /var/jenkins_home  # Specify the Jenkins home directory
+  listen:
+    port: 8080  # The port Jenkins listens on
+  security:
+    enable: true  # Enable security for Jenkins
+    user: jenkins_admin  # Default user
+    password: "admin123"  # Default password (can be overridden in your configuration)
+  plugins:
+    - git: latest  # Automatically install Git plugin
+    - docker: latest  # Install the Docker plugin for Jenkins
+    - workflow-aggregator: latest  # Install the workflow plugin for pipelines
+    - blueocean: latest  # Install the Blue Ocean plugin for modern UI
+
+# Docker Daemon Settings
+docker:
+  enable: true  # Enable Docker support in Jenkins
+  host: unix:///var/run/docker.sock  # Docker socket for Jenkins to interact with Docker
+  autoCleanup: true  # Clean up old Docker containers automatically after builds
+  imagePullPolicy: IfNotPresent  # Pull image only if not present
+
+# Backup and Restore Settings
+backup:
+  enable: true  # Enable backup of Jenkins data
+  frequency: daily  # Frequency of backups (can be set to daily, weekly, etc.)
+  destination: /var/jenkins_backup  # Backup destination directory
+
+# Logging Configuration
+logging:
+  level: INFO  # Set the logging level for Jenkins (DEBUG, INFO, WARN, ERROR)
+  logDirectory: /var/log/jenkins  # Define where logs are stored
+  maxSize: 15MB  # Max size for log files before rotation
+  rotation: daily  # Rotate logs daily
