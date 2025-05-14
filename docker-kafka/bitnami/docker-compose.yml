@@ -1,0 +1,17 @@
+services:
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      - BITNAMI_DEBUG=true
+      - KAFKA_CLUSTER_ID=zJ8KeJo3TGqFI6MT2qawMw
+    volumes:
+      - ./server.properties:/bitnami/kafka/config/server.properties
+      - kafka-data:/bitnami/kafka
+    restart: always
+
+volumes:
+  kafka-data:
+    driver: local

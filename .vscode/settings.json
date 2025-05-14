@@ -1,0 +1,29 @@
+{
+    "cSpell.words": [
+        "appendfilename",
+        "appendonly",
+        "archivedir",
+        "authc",
+        "autovacuum",
+        "bitnami",
+        "blueocean",
+        "BOOTSTRAPSERVERS",
+        "confluentinc",
+        "elif",
+        "eswrapper",
+        "healthcheck",
+        "INITDB",
+        "logfile",
+        "loglevel",
+        "MAXBUFFER",
+        "MGMT",
+        "minioadmin",
+        "mongosh",
+        "nodered",
+        "provectuslabs",
+        "psql",
+        "RABBITMQ",
+        "usermod",
+        "xpack"
+    ]
+}
