@@ -10,7 +10,7 @@ build:
 	docker build -t $(IMAGE_NAME) .
 
 # Run the Redis container with a password prompt
-run:
+start:
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
@@ -28,7 +28,7 @@ run:
 # 	  -p $(PORT):$(PORT) \
 # 	  -v $(VOLUME_NAME):/data \
 # 	  -v $(PWD)/$(CONFIG_FILE):/usr/local/etc/redis/redis.conf \
-# 	  -e REDIS_PASSWORD="$$REDIS_PASSWORD" \
+# 	  -e REDIS_PASSWORD="$REDIS_PASSWORD" \
 # 	  $(IMAGE_NAME)
 
 # Connect to the Redis server using redis-cli
@@ -36,7 +36,7 @@ connect:
 	docker exec -it $(CONTAINER_NAME) redis-cli
 
 # Start the Redis container
-start:
+run:
 	docker start $(CONTAINER_NAME)
 
 # Stop the Redis container
@@ -60,9 +60,9 @@ ps:
 help:
 	@echo "Available targets:"
 	@echo "  build    - Build the Docker image"
-	@echo "  run      - Run the Redis container (prompts for password)"
+	@echo "  start    - Run the Redis container (prompts for password)"
+	@echo "  run      - Start the Redis container"
 	@echo "  connect  - Connect to the Redis server using redis-cli"
-	@echo "  start    - Start the Redis container"
 	@echo "  stop     - Stop the Redis container"
 	@echo "  clean    - Remove the Redis container and associated volume"
 	@echo "  logs     - Show logs from the Redis container"

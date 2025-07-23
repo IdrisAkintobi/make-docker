@@ -9,7 +9,7 @@ build:
 	docker compose up --build -d
 
 # Start the Docker Compose services
-up:
+start:
 	docker compose up -d
 
 # Check logs for the Mongo service
@@ -40,7 +40,7 @@ ps:
 help:
 	@echo "Available targets:"
 	@echo "  build       - Build the Docker images"
-	@echo "  up          - Start the services defined in docker-compose.yml"
+	@echo "  start       - Start the services defined in docker-compose.yml"
 	@echo "  down        - Stop the services"
 	@echo "  clean       - Stop and remove the services, along with volumes"
 	@echo "  logs        - View logs for the Mongo service"

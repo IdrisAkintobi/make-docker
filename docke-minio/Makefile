@@ -7,7 +7,7 @@ DATA_VOLUME = minio-data
 CONFIG_FILE = minio.env
 
 # Run the MinIO container
-run:
+start:
 	@docker run -d \
 	--name $(CONTAINER_NAME) \
 	-p $(HOST_PORT):9000 \
@@ -45,8 +45,7 @@ ps:
 help:
 	@echo "Available targets:"
 	@echo "  build          - Build the Docker image"
-	@echo "  run            - Run the MinIO container"
-	@echo "  start          - Start the MinIO container"
+	@echo "  start          - Run the MinIO container"
 	@echo "  stop           - Stop the MinIO container"
 	@echo "  clean          - Remove container and volume"
 	@echo "  logs           - View container logs"

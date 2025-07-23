@@ -8,10 +8,10 @@ VOLUME_NAME = rabbitmq-data
 RABBITMQ_USER = admin
 RABBITMQ_PASSWORD ?= secret
 
-run:
-	@echo "Enter RabbitMQ password (default: $(RABBITMQ_PASSWORD)):"
+start:
+	@echo "Enter RabbitMQ password (default: $(RABBITMQ_PASSWORD))"
 	@read -p "Password: " input_password; \
-	if [ -z "$$input_password" ]; then \
+	if [ -z "$input_password" ]; then \
 		input_password=$(RABBITMQ_PASSWORD); \
 	fi; \
 	docker run -d \
@@ -21,10 +21,10 @@ run:
 	  -v $(VOLUME_NAME):/var/lib/rabbitmq \
 	  -v $(PWD)/$(CONFIG_FILE):/etc/rabbitmq/rabbitmq.conf \
 	  -e RABBITMQ_DEFAULT_USER=$(RABBITMQ_USER) \
-	  -e RABBITMQ_DEFAULT_PASS=$$input_password \
+	  -e RABBITMQ_DEFAULT_PASS=$input_password \
 	  $(IMAGE_NAME)
 
-start:
+run:
 	docker start $(CONTAINER_NAME)
 
 stop:
@@ -42,8 +42,8 @@ ps:
 
 help:
 	@echo "Available targets:"
-	@echo "  run            - Run the RabbitMQ container"
-	@echo "  start          - Start the RabbitMQ container"
+	@echo "  start          - Run the RabbitMQ container"
+	@echo "  run            - Start the RabbitMQ container"
 	@echo "  stop           - Stop the RabbitMQ container"
 	@echo "  clean          - Remove the RabbitMQ container and volume"
 	@echo "  logs           - Show logs"

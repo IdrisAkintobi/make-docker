@@ -14,7 +14,7 @@ build:
 	docker build -t $(IMAGE_NAME) .
 
 # Run the Node-RED container
-run:
+start:
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):1880 \
@@ -25,8 +25,9 @@ run:
 	  $(IMAGE_NAME)
 
 # Start the Node-RED container
-start:
+run:
 	docker start $(CONTAINER_NAME)
+
 
 # Stop the Node-RED container
 stop:
@@ -49,8 +50,8 @@ ps:
 help:
 	@echo "Available targets:"
 	@echo "  build    - Build the Docker image"
-	@echo "  run      - Run the Node-RED container"
-	@echo "  start    - Start the Node-RED container"
+	@echo "  start    - Run the Node-RED container"
+	@echo "  run      - Start the Node-RED container"
 	@echo "  stop     - Stop the Node-RED container"
 	@echo "  clean    - Remove the Node-RED container and associated volume"
 	@echo "  logs     - Show logs from the Node-RED container"

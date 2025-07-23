@@ -10,7 +10,7 @@ build:
 	docker build -t $(IMAGE_NAME) .
 
 # Run the Jenkins container
-run:
+start:
 	docker run -d \
 		--name $(CONTAINER_NAME) \
 		-p $(PORT):8080 \
@@ -18,7 +18,7 @@ run:
 		$(IMAGE_NAME)
 
 # Start the Jenkins container
-start:
+run:
 	docker start $(CONTAINER_NAME)
 
 # Stop the Jenkins container
@@ -55,8 +55,8 @@ get_admin_password:
 help:
 	@echo "Available targets:"
 	@echo "  build          - Build the Docker image"
-	@echo "  run            - Run the Jenkins container"
-	@echo "  start          - Start the Jenkins container"
+	@echo "  start          - Run the Jenkins container"
+	@echo "  run            - Start the Jenkins container"
 	@echo "  stop           - Stop the Jenkins container"
 	@echo "  clean          - Remove the Jenkins container and associated volume"
 	@echo "  logs           - Show logs from the Jenkins container"
