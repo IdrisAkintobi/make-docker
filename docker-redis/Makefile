@@ -15,7 +15,7 @@ start:
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/data \
-	  -v $(PWD)/$(CONFIG_FILE):/usr/local/etc/redis/redis.conf \
+	  -v $(CURDIR)/$(CONFIG_FILE):/usr/local/etc/redis/redis.conf \
 	  $(IMAGE_NAME)
 
 

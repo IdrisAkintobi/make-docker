@@ -20,7 +20,7 @@ start:
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/var/lib/postgresql/data \
-	  -v $(PWD)/$(CONFIG_FILE):/usr/share/postgresql/postgresql.conf.sample \
+	  -v $(CURDIR)/$(CONFIG_FILE):/usr/share/postgresql/postgresql.conf.sample \
 	  -e POSTGRES_USER=$(DB_USER) \
 	  -e POSTGRES_PASSWORD=$input_password \
 	  -e POSTGRES_DB=$(DB_NAME) \

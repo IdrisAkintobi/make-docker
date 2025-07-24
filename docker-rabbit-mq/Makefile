@@ -19,7 +19,7 @@ start:
 	  -p $(PORT):5672 \
 	  -p $(MGMT_PORT):15672 \
 	  -v $(VOLUME_NAME):/var/lib/rabbitmq \
-	  -v $(PWD)/$(CONFIG_FILE):/etc/rabbitmq/rabbitmq.conf \
+	  -v $(CURDIR)/$(CONFIG_FILE):/etc/rabbitmq/rabbitmq.conf \
 	  -e RABBITMQ_DEFAULT_USER=$(RABBITMQ_USER) \
 	  -e RABBITMQ_DEFAULT_PASS=$input_password \
 	  $(IMAGE_NAME)

@@ -19,7 +19,7 @@ start:
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/usr/share/elasticsearch/data \
-	  -v $(PWD)/$(CONFIG_FILE):/usr/share/elasticsearch/config/elasticsearch.yml \
+	  -v $(CURDIR)/$(CONFIG_FILE):/usr/share/elasticsearch/config/elasticsearch.yml \
 	  -e ELASTIC_PASSWORD=$input_password \
 	  -e ES_JAVA_OPTS=$(JAVA_OPTS) \
 	  $(IMAGE_NAME)
