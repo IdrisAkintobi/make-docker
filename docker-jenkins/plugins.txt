@@ -1,0 +1,5 @@
+git:latest
+docker-plugin:latest
+workflow-aggregator:latest
+blueocean:latest
+configuration-as-code:latest

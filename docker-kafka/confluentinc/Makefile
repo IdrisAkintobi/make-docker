@@ -2,7 +2,7 @@ COMPOSE_FILE = docker-compose.yml
 PROJECT_NAME = kafka_confluentinc
 
 # Start Kafka and Zookeeper
-run:
+start:
 	docker-compose -f $(COMPOSE_FILE) -p $(PROJECT_NAME) up -d
 
 # Stop and remove all containers
@@ -31,7 +31,7 @@ ps:
 # Help command
 help:
 	@echo "Available targets:"
-	@echo "  run         - Start Kafka and Zookeeper"
+	@echo "  start       - Start Kafka and Zookeeper"
 	@echo "  stop        - Stop containers"
 	@echo "  clean       - Stop and remove all containers and volumes"
 	@echo "  logs        - Show Kafka logs"

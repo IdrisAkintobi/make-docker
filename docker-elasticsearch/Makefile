@@ -9,18 +9,18 @@ JAVA_OPTS = '-Xms512m -Xmx512m'
 ELASTIC_PASSWORD ?= elastic
 
 # Prompt for the password if not provided
-run:
-	@echo "Enter Elasticsearch password (default: $(ELASTIC_PASSWORD)):"
+start:
+	@echo "Enter Elasticsearch password (default: $(ELASTIC_PASSWORD)):
 	@read -p "Password: " input_password; \
-	if [ -z "$$input_password" ]; then \
+	if [ -z "$input_password" ]; then \
 		input_password=$(ELASTIC_PASSWORD); \
 	fi; \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/usr/share/elasticsearch/data \
-	  -v $(PWD)/$(CONFIG_FILE):/usr/share/elasticsearch/config/elasticsearch.yml \
-	  -e ELASTIC_PASSWORD=$$input_password \
+	  -v $(CURDIR)/$(CONFIG_FILE):/usr/share/elasticsearch/config/elasticsearch.yml \
+	  -e ELASTIC_PASSWORD=$input_password \
 	  -e ES_JAVA_OPTS=$(JAVA_OPTS) \
 	  $(IMAGE_NAME)
 
@@ -29,7 +29,7 @@ build:
 	docker build -t $(IMAGE_NAME) .
 
 # Start the Elasticsearch container
-start:
+run:
 	docker start $(CONTAINER_NAME)
 
 # Stop the Elasticsearch container
@@ -57,8 +57,8 @@ status:
 help:
 	@echo "Available targets:"
 	@echo "  build          - Build the Docker image"
-	@echo "  run            - Run the Elasticsearch container"
-	@echo "  start          - Start the Elasticsearch container"
+	@echo "  start          - Run the Elasticsearch container"
+	@echo "  run            - Start the Elasticsearch container"
 	@echo "  stop           - Stop the Elasticsearch container"
 	@echo "  clean          - Remove the Elasticsearch container and associated volume"
 	@echo "  logs           - Show logs from the Elasticsearch container"

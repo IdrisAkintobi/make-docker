@@ -10,19 +10,19 @@ DB_USER = postgres
 DB_PASSWORD ?= secret
 
 # Prompt for the password if not provided
-run:
+start:
 	@echo "Enter PostgreSQL password (default: $(DB_PASSWORD)):"
 	@read -p "Password: " input_password; \
-	if [ -z "$$input_password" ]; then \
+	if [ -z "$input_password" ]; then \
 		input_password=$(DB_PASSWORD); \
 	fi; \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/var/lib/postgresql/data \
-	  -v $(PWD)/$(CONFIG_FILE):/usr/share/postgresql/postgresql.conf.sample \
+	  -v $(CURDIR)/$(CONFIG_FILE):/usr/share/postgresql/postgresql.conf.sample \
 	  -e POSTGRES_USER=$(DB_USER) \
-	  -e POSTGRES_PASSWORD=$$input_password \
+	  -e POSTGRES_PASSWORD=$input_password \
 	  -e POSTGRES_DB=$(DB_NAME) \
 	  $(IMAGE_NAME)
 
@@ -35,7 +35,7 @@ connect:
 	docker exec -it $(CONTAINER_NAME) psql -U $(DB_USER) -d $(DB_NAME)
 
 # Start the PostgreSQL container
-start:
+run:
 	docker start $(CONTAINER_NAME)
 
 # Stop the PostgreSQL container
@@ -71,9 +71,9 @@ db.create:
 help:
 	@echo "Available targets:"
 	@echo "  build          - Build the Docker image"
-	@echo "  run            - Run the PostgreSQL container"
+	@echo "  start          - Run the PostgreSQL container"
+	@echo "  run            - Start the PostgreSQL container"
 	@echo "  connect        - Connect to the PostgreSQL server using psql"
-	@echo "  start          - Start the PostgreSQL container"
 	@echo "  stop           - Stop the PostgreSQL container"
 	@echo "  clean          - Remove the PostgreSQL container and associated volume"
 	@echo "  logs           - Show logs from the PostgreSQL container"

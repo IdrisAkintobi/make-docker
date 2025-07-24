@@ -2,7 +2,7 @@
 FROM docker.elastic.co/elasticsearch/elasticsearch:8.17.2
 
 # Copy the custom elasticsearch.yml into the container
-COPY ./elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+COPY elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 # Expose Elasticsearch port
 EXPOSE 9200

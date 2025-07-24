@@ -7,14 +7,14 @@ DATA_VOLUME = minio-data
 CONFIG_FILE = minio.env
 
 # Run the MinIO container
-run:
+start:
 	@docker run -d \
 	--name $(CONTAINER_NAME) \
 	-p $(HOST_PORT):9000 \
 	-p $(CONSOLE_PORT):9001 \
 	-v $(DATA_VOLUME):/mnt/data \
-	-v $(PWD)/$(CONFIG_FILE):/root/.minio/minio.env \
-	--env-file $(PWD)/$(CONFIG_FILE) \
+	-v $(CURDIR)/$(CONFIG_FILE):/root/.minio/minio.env \
+	--env-file $(CURDIR)/$(CONFIG_FILE) \
 	$(IMAGE_NAME)
 
 # Build the Docker image
@@ -30,10 +30,11 @@ clean:
 	docker rm -f $(CONTAINER_NAME)
 	docker volume rm $(DATA_VOLUME)
 
-# Start/Stop
-start:
+# Start an existing container
+run:
 	docker start $(CONTAINER_NAME)
 
+# Stop
 stop:
 	docker stop $(CONTAINER_NAME)
 
@@ -45,8 +46,7 @@ ps:
 help:
 	@echo "Available targets:"
 	@echo "  build          - Build the Docker image"
-	@echo "  run            - Run the MinIO container"
-	@echo "  start          - Start the MinIO container"
+	@echo "  start          - Run the MinIO container"
 	@echo "  stop           - Stop the MinIO container"
 	@echo "  clean          - Remove container and volume"
 	@echo "  logs           - View container logs"
