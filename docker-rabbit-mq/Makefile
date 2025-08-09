@@ -10,9 +10,9 @@ RABBITMQ_PASSWORD ?= secret
 
 start:
 	@echo "Enter RabbitMQ password (default: $(RABBITMQ_PASSWORD))"
-	@read -p "Password: " input_password; \
-	if [ -z "$input_password" ]; then \
-		input_password=$(RABBITMQ_PASSWORD); \
+	@read -p "Password: " pass; \
+	if [ -z "$$pass" ]; then \
+		pass="$(RABBITMQ_PASSWORD)"; \
 	fi; \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
@@ -21,7 +21,7 @@ start:
 	  -v $(VOLUME_NAME):/var/lib/rabbitmq \
 	  -v $(CURDIR)/$(CONFIG_FILE):/etc/rabbitmq/rabbitmq.conf \
 	  -e RABBITMQ_DEFAULT_USER=$(RABBITMQ_USER) \
-	  -e RABBITMQ_DEFAULT_PASS=$input_password \
+	  -e RABBITMQ_DEFAULT_PASS=$$pass \
 	  $(IMAGE_NAME)
 
 run:

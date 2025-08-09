@@ -10,18 +10,18 @@ ELASTIC_PASSWORD ?= elastic
 
 # Prompt for the password if not provided
 start:
-	@echo "Enter Elasticsearch password (default: $(ELASTIC_PASSWORD)):
-	@read -p "Password: " input_password; \
-	if [ -z "$input_password" ]; then \
-		input_password=$(ELASTIC_PASSWORD); \
+	@echo "Enter Elasticsearch password (default: $(ELASTIC_PASSWORD)):"
+	@read -p "Password: " pass; \
+	if [ -z "$$pass" ]; then \
+		pass="$(ELASTIC_PASSWORD)"; \
 	fi; \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/usr/share/elasticsearch/data \
 	  -v $(CURDIR)/$(CONFIG_FILE):/usr/share/elasticsearch/config/elasticsearch.yml \
-	  -e ELASTIC_PASSWORD=$input_password \
-	  -e ES_JAVA_OPTS=$(JAVA_OPTS) \
+	  -e ELASTIC_PASSWORD=$$pass \
+	  -e ES_JAVA_OPTS="$(JAVA_OPTS)" \
 	  $(IMAGE_NAME)
 
 # Build the Docker image
