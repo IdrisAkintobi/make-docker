@@ -12,9 +12,9 @@ DB_PASSWORD ?= secret
 # Prompt for the password if not provided
 start:
 	@echo "Enter PostgreSQL password (default: $(DB_PASSWORD)):"
-	@read -p "Password: " input_password; \
-	if [ -z "$input_password" ]; then \
-		input_password=$(DB_PASSWORD); \
+	@read -p "Password: " pass; \
+	if [ -z "$$pass" ]; then \
+		pass="$(DB_PASSWORD)"; \
 	fi; \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
@@ -22,7 +22,7 @@ start:
 	  -v $(VOLUME_NAME):/var/lib/postgresql/data \
 	  -v $(CURDIR)/$(CONFIG_FILE):/usr/share/postgresql/postgresql.conf.sample \
 	  -e POSTGRES_USER=$(DB_USER) \
-	  -e POSTGRES_PASSWORD=$input_password \
+	  -e POSTGRES_PASSWORD=$$pass \
 	  -e POSTGRES_DB=$(DB_NAME) \
 	  $(IMAGE_NAME)
 
