@@ -9,7 +9,8 @@ SERVICES = $(patsubst %/Makefile,%,$(SERVICE_MAKEFILES))
 # Default target: Show help
 help:
 	@echo "Available commands:"
-	@echo "  start     - Interactively select and start services (builds Docker services first)"
+	@echo "  start     - Interactively select and start services (creates new containers, builds first if needed)"
+	@echo "  run       - Interactively select and start existing containers"
 	@echo "  stop      - Interactively select and stop services"
 	@echo "  clean     - Interactively select and clean services"
 	@echo "  build     - Interactively select and build Docker services"
@@ -18,7 +19,7 @@ help:
 	@echo "  logs      - Interactively select and view logs of services"
 	@echo "  help      - Show this help message"
 
-# Target to start services
+# Target to start services (handles existing containers automatically)
 start:
 	@echo "Select services to start (e.g., 1 2 4):"
 	@i=1; for dir in $(SERVICES); do \
@@ -33,7 +34,26 @@ start:
 			$(MAKE) -C $$dir build; \
 		fi; \
 		echo "Starting $$dir..."; \
-		$(MAKE) -C $$dir start; \
+		if $(MAKE) -C $$dir start 2>/dev/null; then \
+			echo "$$dir started successfully"; \
+		else \
+			echo "Container exists, starting existing container..."; \
+			$(MAKE) -C $$dir run; \
+		fi; \
+	done
+
+# Target to run existing containers
+run:
+	@echo "Select services to run (e.g., 1 2 4):"
+	@i=1; for dir in $(SERVICES); do \
+		echo "$$i. $$dir"; \
+		i=$$((i+1)); \
+	done
+	@read -p "Enter selection: " selection; \
+	for i in $$selection; do \
+		dir=$$(echo $(SERVICES) | cut -d' ' -f$$i); \
+		echo "Running $$dir..."; \
+		$(MAKE) -C $$dir run; \
 	done
 
 # Target to stop services
@@ -116,4 +136,4 @@ logs:
 		echo ""; \
 	done
 
-.PHONY: help start stop clean build build-all ps logs
+.PHONY: help start run stop clean build build-all ps logs
