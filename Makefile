@@ -85,7 +85,7 @@ clean:
 	done
 
 # Target to build services
-build:
+build: ## Interactively select and build Docker services
 	@echo "Select services to build (e.g., 1 2 4):"
 	@i=1; for dir in $(SERVICES); do \
 		echo "$$i. $$dir"; \
@@ -94,24 +94,17 @@ build:
 	@read -p "Enter selection: " selection; \
 	for i in $$selection; do \
 		dir=$$(echo $(SERVICES) | cut -d' ' -f$$i); \
-		if [ -f "$$dir/Dockerfile" ]; then \
 			echo "Building $$dir..."; \
 			$(MAKE) -C $$dir build; \
-		else \
-			echo "Skipping build for $$dir: No Dockerfile found."; \
-		fi; \
 	done
 
 # Target to build all services
-build-all:
+build-all: ## Build all Docker services
 	@for dir in $(SERVICES); do \
-		if [ -f "$$dir/Dockerfile" ]; then \
-			echo "Building $$dir..."; \
-			$(MAKE) -C $$dir build; \
-		else \
-			echo "Skipping build for $$dir: No Dockerfile found."; \
-		fi; \
+		echo "Building $$dir..."; \
+		$(MAKE) -C $$dir build; \
 	done
+
 
 # Target to show status of all services
 ps:
@@ -122,7 +115,7 @@ ps:
 	done
 
 # Target to view logs of services
-logs:
+logs: ## Interactively select and view logs of services
 	@echo "Select services to view logs (e.g., 1 2 4):"
 	@i=1; for dir in $(SERVICES); do \
 		echo "$$i. $$dir"; \
@@ -135,5 +128,12 @@ logs:
 		$(MAKE) -C $$dir logs; \
 		echo ""; \
 	done
+
+# Dynamic targets for individual service commands
+define define_service_targets = 
+$(strip $(1)-build: ## Build $(1) Docker service
+	$(MAKE) -C $(1) build)
+endef
+$(foreach service,$(SERVICES),$(eval $(call define_service_targets,$(service))))
 
 .PHONY: help start run stop clean build build-all ps logs
