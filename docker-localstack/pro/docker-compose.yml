@@ -1,3 +1,6 @@
+# LocalStack Web UI: https://app.localstack.cloud/
+# API Gateway: http://localhost:4566
+# HTTPS Gateway: https://localhost:443
 services:
   localstack:
     container_name: "${LOCALSTACK_DOCKER_NAME:-localstack}"
