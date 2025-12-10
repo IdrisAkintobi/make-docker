@@ -21,6 +21,10 @@ connect:
 	docker exec -it $(CONTAINER_NAME) mongosh -u $(MONGO_USERNAME) -p $(MONGO_PASSWORD)
 
 # Stop the Docker Compose services
+stop:
+	docker compose down
+
+# Alias for stop (backward compatibility)
 down:
 	docker compose down
 
@@ -41,7 +45,8 @@ help:
 	@echo "Available targets:"
 	@echo "  build       - Build the Docker images"
 	@echo "  start       - Start the services defined in docker-compose.yml"
-	@echo "  down        - Stop the services"
+	@echo "  stop        - Stop the services"
+	@echo "  down        - Stop the services (alias for stop)"
 	@echo "  clean       - Stop and remove the services, along with volumes"
 	@echo "  logs        - View logs for the Mongo service"
 	@echo "  restart     - Restart the Docker services"

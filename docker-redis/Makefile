@@ -9,27 +9,17 @@ CONFIG_FILE = redis.conf
 build:
 	docker build -t $(IMAGE_NAME) .
 
-# Run the Redis container with a password prompt
+# Run the Redis container with optional password
 start:
+	@echo "Enter Redis password:"
+	@read -s REDIS_PASSWORD; \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/data \
-	  -v $(CURDIR)/$(CONFIG_FILE):/usr/local/etc/redis/redis.conf \
+	  -v $(PWD)/$(CONFIG_FILE):/usr/local/etc/redis/redis.conf \
+	  -e REDIS_PASSWORD="$REDIS_PASSWORD" \
 	  $(IMAGE_NAME)
-
-
-# Use the below command to use with password
-# run:
-# 	@echo "Enter Redis password:"
-# 	@read -s REDIS_PASSWORD; \
-# 	docker run -d \
-# 	  --name $(CONTAINER_NAME) \
-# 	  -p $(PORT):$(PORT) \
-# 	  -v $(VOLUME_NAME):/data \
-# 	  -v $(PWD)/$(CONFIG_FILE):/usr/local/etc/redis/redis.conf \
-# 	  -e REDIS_PASSWORD="$REDIS_PASSWORD" \
-# 	  $(IMAGE_NAME)
 
 # Connect to the Redis server using redis-cli
 connect:
