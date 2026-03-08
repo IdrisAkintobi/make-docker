@@ -14,6 +14,7 @@ start:
 	if [ -z "$$pass" ]; then \
 		pass="$(RABBITMQ_PASSWORD)"; \
 	fi; \
+	echo "Starting RabbitMQ container (this may take a moment while the image downloads)..."; \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):5672 \
@@ -22,7 +23,8 @@ start:
 	  -v $(CURDIR)/$(CONFIG_FILE):/etc/rabbitmq/rabbitmq.conf \
 	  -e RABBITMQ_DEFAULT_USER=$(RABBITMQ_USER) \
 	  -e RABBITMQ_DEFAULT_PASS=$$pass \
-	  $(IMAGE_NAME)
+	  $(IMAGE_NAME) && \
+	echo "RabbitMQ started. Management UI available at http://localhost:$(MGMT_PORT)"
 
 run:
 	docker start $(CONTAINER_NAME)

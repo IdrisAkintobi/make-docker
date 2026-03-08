@@ -1,5 +1,5 @@
 # Use the official Elasticsearch image from Docker Hub
-FROM docker.elastic.co/elasticsearch/elasticsearch:8.17.2
+FROM docker.elastic.co/elasticsearch/elasticsearch:8
 
 # Copy the custom elasticsearch.yml into the container
 COPY elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml

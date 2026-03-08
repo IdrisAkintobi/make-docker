@@ -1,5 +1,5 @@
 # Use the official MinIO image
-FROM minio/minio:RELEASE.2025-04-08T15-41-24Z
+FROM pgsty/minio:latest
 
 # Create directories for MinIO data and configuration
 RUN mkdir -p /mnt/data /root/.minio && \
