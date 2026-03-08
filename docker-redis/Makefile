@@ -1,3 +1,6 @@
+SHELL := /bin/bash
+.PHONY: start connect run stop clean logs ps help
+
 # Variables
 IMAGE_NAME = valkey/valkey:8
 CONTAINER_NAME = valkey-container
@@ -9,6 +12,7 @@ CONFIG_FILE = redis.conf
 start:
 	@echo "Enter Valkey password (press Enter for no password):"
 	@read -s VALKEY_PASSWORD; \
+	echo; \
 	echo "Starting Valkey container..."; \
 	PASS_FLAG=""; \
 	if [ -n "$$VALKEY_PASSWORD" ]; then PASS_FLAG="--requirepass $$VALKEY_PASSWORD"; fi; \

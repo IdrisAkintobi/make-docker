@@ -23,7 +23,7 @@ logs:
 
 # Connect to the mongo shell
 connect:
-	docker exec -it $(CONTAINER_NAME) mongosh -u $(MONGO_USERNAME) -p $(MONGO_PASSWORD)
+	docker exec -it $(CONTAINER_NAME) mongosh -u $(MONGO_USERNAME) -p $(MONGO_PASSWORD) --authenticationDatabase admin
 
 # Show replica set status
 status:
