@@ -1,3 +1,6 @@
+SHELL := /bin/bash
+.PHONY: build start connect run stop clean logs ps help
+
 # Variables
 IMAGE_NAME = valkey/valkey:8
 CONTAINER_NAME = valkey-container
@@ -9,15 +12,17 @@ CONFIG_FILE = redis.conf
 start:
 	@echo "Enter Valkey password (press Enter for no password):"
 	@read -s VALKEY_PASSWORD; \
+	echo; \
 	echo "Starting Valkey container..."; \
-	PASS_FLAG=""; \
-	if [ -n "$$VALKEY_PASSWORD" ]; then PASS_FLAG="--requirepass $$VALKEY_PASSWORD"; fi; \
+	grep -v "^requirepass" $(CONFIG_FILE) > $(CONFIG_FILE).tmp; \
+	if [ -n "$$VALKEY_PASSWORD" ]; then echo "requirepass $$VALKEY_PASSWORD" >> $(CONFIG_FILE).tmp; fi; \
+	mv $(CONFIG_FILE).tmp $(CONFIG_FILE); \
 	docker run -d \
 	  --name $(CONTAINER_NAME) \
 	  -p $(PORT):$(PORT) \
 	  -v $(VOLUME_NAME):/data \
 	  -v $(CURDIR)/$(CONFIG_FILE):/etc/valkey/valkey.conf \
-	  $(IMAGE_NAME) valkey-server /etc/valkey/valkey.conf $$PASS_FLAG && \
+	  $(IMAGE_NAME) valkey-server /etc/valkey/valkey.conf && \
 	echo "Valkey started on port $(PORT)"
 
 # Connect to the Valkey server using valkey-cli
