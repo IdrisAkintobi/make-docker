@@ -1,5 +1,5 @@
 # Use the official PostgreSQL image from the Docker Hub
-FROM postgres:17.4
+FROM postgres:17
 
 # Create the WAL archive directory and set permissions
 RUN mkdir -p /mnt/server/archivedir && chown postgres:postgres /mnt/server/archivedir
