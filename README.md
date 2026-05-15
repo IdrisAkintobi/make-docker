@@ -28,7 +28,7 @@ This setup is designed to be used with the Docker CLI. If you are using Docker D
 
 Some services require specific environment variables to be set. In directories that contain a `.env.example` or `env.example` file, you should copy it to a new file named `.env` and customize the variables within it. These `.env` files are gitignored and should not be committed to the repository.
 
-For example, in the `docker-mongo` directory, you would copy `env.example` to `.env` and then modify the new `.env` file with your desired settings. Similarly, for services like `docke-minio` and `docker-localstack`, you will find `.env.example` files that should be copied and customized.
+For example, in the `docker-mongo` directory, you would copy `env.example` to `.env` and then modify the new `.env` file with your desired settings. Similarly, for services like `docke-minio` and `docker-floci`, you will find `.env.example` files that should be copied and customized.
 
 Please refer to each service's directory for details on required environment variables.
 
